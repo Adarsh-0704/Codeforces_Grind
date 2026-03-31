@@ -10,7 +10,7 @@ async function problems(){
 
         if (data.status == 'OK'){
             allProblems = data.result.problems.slice(0, 40);
-
+            showProblems()
         }
         else{
             throw new Error ("API failed");
@@ -22,3 +22,25 @@ async function problems(){
     }
 }
 
+function showProblems(){
+    problemsList.innerHTML = ''
+    const start = (currPage - 1) * maxPer
+    const end = start + maxPer
+    const toShow = allProblems.slice(start, end)
+    
+    toShow.forEach(problem => {
+        const probDiv = document.createElement('div')
+        probDiv.className = 'problem_container'
+
+        probDiv.innerHTML = `
+            <div class = "name">
+                ${problem.contestId}${problem.index} - ${problem.name}
+            </div>
+            <div class = "rating">
+                Rating: ${problem.rating || "Unrated"}
+            </div>`
+        problemsList.appendChild(probDiv)      
+    })
+}
+
+problems()
