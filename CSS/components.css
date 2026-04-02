@@ -1,0 +1,30 @@
+.problem_container{
+    display: flex;
+    background-color: #697280;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+    width: 90%;
+    border-radius: 8px;
+    padding: 0 20px;
+    margin-bottom: 5px;
+    margin-inline: auto;
+    box-sizing: border-box;
+
+}
+.problem_container:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2)
+}
+.name{
+    font-weight: 700;
+    color: white;
+}
+.rating{
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 10px;
+    border-radius: 15px;
+
+}

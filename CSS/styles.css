@@ -84,7 +84,6 @@ header h1{
 .li{
     height: 60px;
     width: 100%;
-    background-color: #eeeeee;
     border-radius: 8px;
     background: linear-gradient(170deg, hsla(0, 5%, 83%, 0.847) 25%, hsla(0, 3%, 88%, 0.502) 50%, hsla(0, 1%, 50%, 0.62) 75%, hsla(0, 1%, 60%, 0.29) 100%);
     background-size: 200% 100%;
@@ -97,6 +96,13 @@ header h1{
     100% {
         background-position: -200% 0;;
     }
+}
+
+.page_controls{
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
 }
 @media (max-width: 600px) {
     body{

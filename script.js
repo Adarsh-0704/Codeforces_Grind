@@ -1,7 +1,7 @@
 const problemsList = document.getElementById('problems')
 const page_controls = document.getElementById('page_controls')
 let allProblems = [], currPage = 1
-const maxPer = 10
+const maxPer = 100
 
 async function problems(){
     try{
@@ -9,7 +9,7 @@ async function problems(){
         const data = await response.json()
 
         if (data.status == 'OK'){
-            allProblems = data.result.problems.slice(0, 40);
+            allProblems = data.result.problems.slice(0, 100);
             showProblems()
         }
         else{
@@ -31,16 +31,38 @@ function showProblems(){
     toShow.forEach(problem => {
         const probDiv = document.createElement('div')
         probDiv.className = 'problem_container'
-
+        const color = colorrating(problem.rating);
         probDiv.innerHTML = `
             <div class = "name">
                 ${problem.contestId}${problem.index} - ${problem.name}
             </div>
-            <div class = "rating">
-                Rating: ${problem.rating || "Unrated"}
+            <div class = "rating" style="background-color: ${color}; box-shadow: 0 4px 8px ${color};">
+                  Rating: ${problem.rating || "Unrated"}
             </div>`
         problemsList.appendChild(probDiv)      
     })
 }
 
 problems()
+function colorrating(rating){
+    if (!rating) return '#000'
+    switch (true){
+        case rating < 1200:
+            return 'grey'
+        case rating < 1400:
+            return 'green'
+        case rating < 1600:
+            return 'cyan'
+        case rating < 1900:
+            return 'darkblue'
+        case rating < 2100:
+            return 'purple'
+        case rating < 2400:
+            return 'yellow'
+        case rating < 3000:
+            return 'red'
+        default:
+            return '#991b1b'
+    }
+
+}
