@@ -29,9 +29,11 @@ function showProblems(){
     const toShow = allProblems.slice(start, end)
     
     toShow.forEach(problem => {
-        const probDiv = document.createElement('div')
+        const probDiv = document.createElement('a')
         probDiv.className = 'problem_container'
         const color = colorrating(problem.rating);
+        probDiv.href = `https://codeforces.com/problemset/problem/${problem.contestId}/${problem.index}`
+        probDiv.target = "_blank"
         probDiv.innerHTML = `
             <div class = "name">
                 ${problem.contestId}${problem.index} - ${problem.name}

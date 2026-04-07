@@ -10,6 +10,7 @@
     margin-bottom: 5px;
     margin-inline: auto;
     box-sizing: border-box;
+    text-decoration: none;
 
 }
 .problem_container:hover{
