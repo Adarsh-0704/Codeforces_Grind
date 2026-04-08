@@ -1,10 +1,12 @@
 import { ascending, descending } from "./sort.js"
+import { searchBar } from "./search.js"
 
 const problemsList = document.getElementById('problems')
 const page_control = document.getElementById('page_control')
 const easy = document.getElementsByClassName('ascending')[0]
 const hard = document.getElementsByClassName('descending')[0]
-let allProblems = [], currPage = 1
+const input = document.getElementById('search')
+let allProblems = [], currPage = 1, displayedProblems = []
 const maxPer = 20
 
 async function problems(){
@@ -13,7 +15,8 @@ async function problems(){
         const data = await response.json()
 
         if (data.status == 'OK'){
-            allProblems = data.result.problems.slice(0,);
+            allProblems = data.result.problems.slice(0,)
+            displayedProblems = [...allProblems]
             showProblems()
         }
         else{
@@ -30,7 +33,7 @@ function showProblems(){
     problemsList.innerHTML = ''
     const start = (currPage - 1) * maxPer
     const end = start + maxPer
-    const toShow = allProblems.slice(start, end)
+    const toShow = displayedProblems.slice(start, end)
     
     toShow.forEach(problem => {
         const probDiv = document.createElement('a')
@@ -51,7 +54,7 @@ function showProblems(){
 }
 
 function pages(){
-    const total = Math.ceil(allProblems.length / maxPer)
+    const total = Math.ceil(displayedProblems.length / maxPer)
     page_control.innerHTML = `
     <button id = "previous" class = "page" ${currPage === 1 ? 'disabled' : ''}>Previous</button>
     <span class = "info">Page ${currPage} of ${total}</span>
@@ -72,8 +75,14 @@ function pages(){
             showProblems()
         }
     })
-
 }
+
+input.addEventListener('input' , (e) => {
+    const inputValue = e.target.value
+    displayedProblems = searchBar(allProblems, inputValue)
+    currPage = 1
+    showProblems()
+})
 
 function colorrating(rating){
     if (!rating) return '#000'
@@ -99,12 +108,12 @@ function colorrating(rating){
 }
 
 easy.addEventListener('click' , () =>{
-    allProblems = ascending(allProblems)
+    displayedProblems = ascending(allProblems)
     currPage = 1
     showProblems()
 })
 hard.addEventListener('click' , () =>{
-    allProblems = descending(allProblems)
+    displayedProblems = descending(allProblems)
     currPage = 1
     showProblems()
 })
