@@ -27,5 +27,23 @@
     font-weight: 600;
     padding: 10px;
     border-radius: 15px;
-
+}
+.info{
+    color : #333333;
+    font-weight: bold;
+}
+.page{
+    padding: 10px;
+    background-color: #333333;
+    color: white;
+    border-radius: 6px;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: 700;
+}
+.page:disabled{
+    background-color: #cccccc;
+    color: #888888;
+    cursor: not-allowed;
 }
