@@ -1,5 +1,9 @@
+import { ascending, descending } from "./sort.js"
+
 const problemsList = document.getElementById('problems')
 const page_control = document.getElementById('page_control')
+const easy = document.getElementsByClassName('ascending')[0]
+const hard = document.getElementsByClassName('descending')[0]
 let allProblems = [], currPage = 1
 const maxPer = 20
 
@@ -93,4 +97,15 @@ function colorrating(rating){
     }
 
 }
+
+easy.addEventListener('click' , () =>{
+    allProblems = ascending(allProblems)
+    currPage = 1
+    showProblems()
+})
+hard.addEventListener('click' , () =>{
+    allProblems = descending(allProblems)
+    currPage = 1
+    showProblems()
+})
 problems()
