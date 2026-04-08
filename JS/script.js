@@ -1,11 +1,13 @@
 import { ascending, descending } from "./sort.js"
 import { searchBar } from "./search.js"
+import { filter, cfTags } from "./filtering.js"
 
 const problemsList = document.getElementById('problems')
 const page_control = document.getElementById('page_control')
 const easy = document.getElementsByClassName('ascending')[0]
 const hard = document.getElementsByClassName('descending')[0]
 const input = document.getElementById('search')
+const tags = document.getElementById('tags')
 let allProblems = [], currPage = 1, displayedProblems = []
 const maxPer = 20
 
@@ -84,6 +86,20 @@ input.addEventListener('input' , (e) => {
     showProblems()
 })
 
+function addTags(){
+    cfTags.sort().forEach(tag => {
+        const option = document.createElement('option')
+        option.value = tag
+        option.textContent = tag.charAt(0).toUpperCase() + tag.slice(1)
+        tags.appendChild(option) 
+    })
+}
+tags.addEventListener('change', (e) => {
+    const tag = e.target.value
+    displayedProblems = filter(allProblems, tag)
+    currPage = 1
+    showProblems()
+})
 function colorrating(rating){
     if (!rating) return '#000'
     switch (true){
@@ -117,4 +133,5 @@ hard.addEventListener('click' , () =>{
     currPage = 1
     showProblems()
 })
+addTags()
 problems()
